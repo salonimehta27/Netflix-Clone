@@ -11,7 +11,7 @@ function Row({ title, fetchUrl, isLargeRow }) {
             .then(data => setMovies(data.results))
     }, [fetchUrl])
 
-    // console.log(movies)
+    console.log(movies)
     return (
         <div className="row">
             <h2>{title}</h2>

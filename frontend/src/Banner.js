@@ -10,7 +10,7 @@ function Banner({ fetchUrl }) {
                 return data.results[Math.floor(Math.random() * data.results.length - 1)]
             }))
     }, [])
-    console.log(movie)
+    // console.log(movie)
     return (
         <header className="banner"
             style={{

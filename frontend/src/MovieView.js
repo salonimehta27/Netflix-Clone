@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from "react-router-dom"
+import MovieDetails from './MovieDetails';
 
 function MovieView({ fetchURL }) {
+    console.log(fetchURL)
     const { id } = useParams();
     const [getMovie, setMovie] = useState([]);
 

@@ -11,6 +11,14 @@ function Banner({ fetchUrl }) {
             }))
     }, [])
     // console.log(movie)
+    function truncateString(str, num) {
+        if (str?.length > num) {
+            let subStr = str.substring(0, num);
+            return subStr + "...";
+        } else {
+            return str;
+        }
+    }
     return (
         <header className="banner"
             style={{
@@ -24,8 +32,9 @@ function Banner({ fetchUrl }) {
                     <button className="banner__button">Play</button>
                     <button className="banner__button">My List</button>
                 </div>
-                <h1 className="banner__description">{movie?.overview}</h1>
+                <h1 className="banner__description">{truncateString(movie?.overview, 150)}</h1>
             </div>
+            <div className="banner--fadeBottom"></div>
         </header>
     )
 }

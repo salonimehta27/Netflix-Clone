@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react'
 import "./Banner.css"
 function Banner({ fetchUrl }) {
     const [movie, setMovie] = useState([])
-    const baseURL = "https://api.themoviedb.org/3"
+    // const baseURL = "https://api.themoviedb.org/3"
     useEffect(() => {
-        fetch(`${baseURL}${fetchUrl}`)
+        fetch(`${fetchUrl}`)
             .then(resp => resp.json())
             .then(data => setMovie(() => {
-                return data.results[Math.floor(Math.random() * data.results.length - 1)]
+                return data[Math.floor(Math.random() * data.length - 1)]
             }))
     }, [])
     // console.log(movie)

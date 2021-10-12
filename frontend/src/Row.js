@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { useHistory } from "react-router-dom"
 import YouTube from 'react-youtube';
 import movieTrailer from 'movie-trailer'
+import Comments from "./Comments"
 import "./Row.css";
 
 function Row({ title, fetchUrl, isLargeRow }) {
     const [movies, setMovies] = useState([])
-    const [getMovie, setGetMovie] = useState([])
+    // const [getMovie, setGetMovie] = useState([])
     const [trailerUrl, setTrailerUrl] = useState("")
     // var history = useHistory();
     // const baseURL = "https://api.themoviedb.org/3"
@@ -47,7 +48,7 @@ function Row({ title, fetchUrl, isLargeRow }) {
                         className={`row__poster ${isLargeRow && "row__posterLarge"}`}
                         src={`${baseImageUrl}${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
                         alt={movie.name}
-                        onClick={handleClick(movie?.name)}
+                        onClick={() => handleClick(movie?.original_name || movie?.title || movie?.name)}
                     />
                 ))}
             </div>

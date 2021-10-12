@@ -7,9 +7,11 @@ import "./Row.css";
 
 function Row({ title, fetchUrl, isLargeRow }) {
     const [movies, setMovies] = useState([])
+    const [movieClick, setMovieClick] = useState(false)
+    const [movieId, setMovieId] = useState(0);
     // const [getMovie, setGetMovie] = useState([])
     const [trailerUrl, setTrailerUrl] = useState("")
-    // var history = useHistory();
+    // let history = useHistory();
     // const baseURL = "https://api.themoviedb.org/3"
     const baseImageUrl = "https://image.tmdb.org/t/p/original/"
     useEffect(() => {
@@ -38,18 +40,29 @@ function Row({ title, fetchUrl, isLargeRow }) {
                 }).catch((error) => console.log(error));
         }
     }
+
+    function handleReview(movieId) {
+        console.log(movieId)
+    }
+    function handleImageClick(movie_id) {
+        setMovieId(movie_id)
+        setMovieClick(!movieClick)
+    }
+
     // console.log(getMovie)
     return (
         <div className="row">
             <h2>{title}</h2>
             <div className="row__posters">
                 {movies.map(movie => (
-                    <img key={movie.id}
+                    <><img key={movie.id}
                         className={`row__poster ${isLargeRow && "row__posterLarge"}`}
                         src={`${baseImageUrl}${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
                         alt={movie.name}
-                        onClick={() => handleClick(movie?.original_name || movie?.title || movie?.name)}
-                    />
+                        onClick={() => handleImageClick(movie.id)}
+                    /> {movieId === movie.id && movieClick && <><button className="mov__button" onClick={() => handleClick(movie?.original_name || movie?.title || movie?.name)}>Play Trailer</button>
+                        <button className="mov__button" onClick={() => handleReview(movie.id)}>Leave Review</button>
+                        <button className="mov__button">View Movie Details</button> </>}</>
                 ))}
             </div>
             {trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />}

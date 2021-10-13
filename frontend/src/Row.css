@@ -42,3 +42,8 @@
     padding-bottom: 0.5rem;
 
 }
+.mov__button:hover{
+    color: #000;
+    background-color: #e6e6e6;
+    transition: all 0.2s
+}

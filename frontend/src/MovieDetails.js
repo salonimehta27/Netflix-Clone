@@ -1,14 +1,18 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 
-function MovieDetails({ movie }) {
+function MovieDetails() {
 
-    const image_baseUrl = "https://image.tmdb.org/t/p/original/"
+    const { id } = useParams()
+    console.log(id);
+    // console.log(props.location)
     return (
-        <div>
-            <img src={`${image_baseUrl}${movie.poster_path}`} alt="movie poster" />
+        <div style={{ marginTop: "3rem", backgroundColor: "white" }}>
             "Hello"
+            {/* <img src={`${baseImageUrl}${movie.poster_path}`}></img> */}
         </div>
     )
 }
 
 export default MovieDetails
+

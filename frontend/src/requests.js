@@ -21,4 +21,15 @@ const requests = {
     fetchRomanceMovies: `http://localhost:9292/romance`,
     fetchDocumentaries: `http://localhost:9292/documentaries`,
 }
-export default requests
+
+const categoryComments = {
+    netflixOriginalComments: "/netflix_originals_comments",
+    trendingComments: "/trending_comments",
+    topRatedComments: "/top_rated_comments",
+    actionComments: "/action_comments",
+    comedyComments: "/comedy_comments",
+    horrorComments: "/horror_comments",
+    romanceComments: "/romance_comments",
+    documentaryComments: "documentary_comments"
+}
+export { requests, categoryComments }

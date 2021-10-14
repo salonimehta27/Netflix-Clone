@@ -14,7 +14,7 @@ function MovieView({ fetchURL }) {
     }, [])
     return (
         <div>
-            <MovieDetails movie={getMovie} />
+            {/* <MovieDetails movie={getMovie} /> */}
         </div>
     )
 }

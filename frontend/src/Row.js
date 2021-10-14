@@ -1,26 +1,30 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory } from "react-router-dom"
-import YouTube from 'react-youtube';
 import movieTrailer from 'movie-trailer'
-import Comments from "./Comments"
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom"
+import Comments from './Comments';
+import YouTube from 'react-youtube';
 import "./Row.css";
+import MovieDetails from './MovieDetails';
 
-function Row({ title, fetchUrl, isLargeRow, categoryLink }) {
+function Row({ title, fetchUrl, isLargeRow, categoryLink, categoryComment }) {
     const [movies, setMovies] = useState([])
     const [movieClick, setMovieClick] = useState(false)
     const [movieId, setMovieId] = useState(0);
     const [displayComments, setDisplayComments] = useState(false)
     // const [getMovie, setGetMovie] = useState([])
     const [trailerUrl, setTrailerUrl] = useState("")
+    const [comments, setComments] = useState([])
+    const [displayMovieDetails, setDisplayMovieDetails] = useState(false)
     // let history = useHistory();
     // const baseURL = "https://api.themoviedb.org/3"
-    const baseImageUrl = "https://image.tmdb.org/t/p/original/"
+
     useEffect(() => {
         fetch(`${fetchUrl}`)
             .then(resp => resp.json())
             .then(data => setMovies(data))
     }, [fetchUrl])
+
+
 
     const opts = {
         height: "390",
@@ -29,6 +33,12 @@ function Row({ title, fetchUrl, isLargeRow, categoryLink }) {
             autoplay: 1,
         },
     }
+
+    function handleAddComment(comment) {
+        // debugger;
+        setComments([...comments, comment])
+    }
+    const baseImageUrl = "https://image.tmdb.org/t/p/original/"
 
     function handleClick(moviename) {
         if (trailerUrl) {
@@ -52,30 +62,42 @@ function Row({ title, fetchUrl, isLargeRow, categoryLink }) {
         setMovieClick(!movieClick)
     }
 
+    function viewComments() {
+        fetch(`http://localhost:9292/${categoryComment}`)
+            .then(resp => resp.json())
+            .then(data => {
+                setComments(data)
+                // console.log(data)
+            })
+        setDisplayMovieDetails(!displayMovieDetails)
+    }
+    const displayAllComments = comments.map(x => <p>{x.comment}</p>)
     // console.log(getMovie)
     return (
-        <div className="row">
-            <h2>{title}</h2>
-            <div className="row__posters">
-                {movies.map(movie => (
-                    <>
-                        <img key={movie.id}
-                            className={`row__poster ${isLargeRow && "row__posterLarge"}`}
-                            src={`${baseImageUrl}${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
-                            alt={movie.name}
-                            onClick={() => handleImageClick(movie.id)}
-                        />
-                        {movieId === movie.id && movieClick && <><button className="mov__button" onClick={() => handleClick(movie?.original_name || movie?.title || movie?.name)}>{`Play ${movie?.original_name || movie?.title || movie?.name} Trailer`}</button>
-                            <button className="mov__button" onClick={() => handleReview(movie.id)}>Leave Review</button>
-                            <Link to={`${categoryLink}/${movie.id}`} className="mov__button" style={{ textDecoration: "none", paddingTop: "1rem" }}>
-                                View movie Details and Reviews</Link></>}
-                        {displayComments && movie.id === movieId && <Comments style={{ marginTop: "10rem" }} />}
+        <div>
+            <div className="row">
+                <h2>{title}</h2>
+                <div className="row__posters">
+                    {movies.map(movie => (
+                        <>
+                            <img key={movie.id}
+                                className={`row__poster ${isLargeRow && "row__posterLarge"}`}
+                                src={`${baseImageUrl}${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
+                                alt={movie.name}
+                                onClick={() => handleImageClick(movie.id)}
+                            />
+                            {movieId === movie.id && movieClick && <><button className="mov__button" onClick={() => handleClick(movie?.original_name || movie?.title || movie?.name)}>{`Play ${movie?.original_name || movie?.title || movie?.name} Trailer`}</button>
+                                <button className="mov__button" onClick={() => handleReview(movie.id)}>Leave Review</button>
+                                <Link to={`${categoryLink}/${movie.id}`} className="mov__button" style={{ textDecoration: "none", paddingTop: "1rem" }} onClick={viewComments}>
+                                    View movie Details and Reviews</Link> </>}
+                            {displayComments && movie.id === movieId && <Comments comments={comments} handleAddComment={handleAddComment} categoryComment={categoryComment} style={{ marginTop: "10rem" }} mov_id={movieId} />}
 
-                    </>
-                ))}
-            </div>
-            {trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />}
-        </div >
+                        </>
+                    ))}
+                </div>
+                {trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />}
+            </div >
+        </div>
     )
 }
 

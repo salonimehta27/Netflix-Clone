@@ -1,37 +1,37 @@
 import React, { useState, useEffect } from 'react'
 
-function Comments({ category_comments, mov_id }) {
-    const [comments, setComments] = useState([])
+function Comments({ categoryComment, mov_id, comments, handleAddComment }) {
 
-    useEffect(() => {
-        fetch(`http://localhost:9292/${category_comments}`)
-            .then(resp => resp.json())
-            .then(data => setComments(data))
-    }, [])
-
-    function handleAddComment(comment) {
-        setComments(...comments, comment)
-    }
-
+    console.log(handleAddComment)
+    const [newComment, setNewComment] = useState("")
+    console.log(newComment)
+    console.log(categoryComment);
     function handleSubmit(e) {
+        // debugger;
         e.preventDefault();
-        fetch(`http://localhost:9292/${category_comments}`, {
+        fetch(`http://localhost:9292/${categoryComment}`, {
             method: "post",
-            header: {
+            headers: {
                 "Content-type": "application/json"
             },
             body: JSON.stringify({
-                comment: comments,
-                mov_id
+                comment: newComment,
+                mov_id: mov_id
             })
-
         }).then(resp => resp.json())
-            .then(comment => handleAddComment(comment))
+            .then(addcomment => {
+                handleAddComment(addcomment)
+                console.log(addcomment)
+                e.target.reset();
+            })
+        setNewComment(" ");
     }
     return (
         <div>
-            <input type="text" name="comment" onChange={(e) => setComments(e.target.value)}></input>
-            <button type="submit" onClick={handleSubmit}>Submit</button>
+            <form onSubmit={handleSubmit}>
+                <input type="text" name="comment" onChange={(e) => setNewComment(e.target.value)}></input>
+                <button type="submit">Submit</button>
+            </form>
         </div>
     )
 }

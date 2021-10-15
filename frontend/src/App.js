@@ -3,7 +3,6 @@ import { BrowserRouter, Switch, Route } from "react-router-dom"
 import Row from './Row';
 import { requests, categoryComments } from './requests';
 import Banner from './Banner';
-import MovieView from './MovieView';
 import Nav from './Nav';
 import MovieDetails from './MovieDetails';
 
@@ -13,9 +12,7 @@ function App() {
       <Nav />
       <BrowserRouter>
         <Switch>
-          <Route exact path="/netflix_originals/:id">
-            <MovieDetails />
-          </Route>
+
           <Route exact path="/">
             <Banner fetchUrl={requests.fetchNetflixOriginals} />
             <Row title="NETFLIX ORIGINALS" fetchUrl={requests.fetchNetflixOriginals} categoryLink="/netflix_originals" categoryComment={categoryComments.netflixOriginalComments} isLargeRow />
@@ -27,27 +24,29 @@ function App() {
             <Row title="Romance" fetchUrl={requests.fetchRomanceMovies} categoryLink="/romance" categoryComment={categoryComments.romanceComments} />
             <Row title="Documentaries" fetchUrl={requests.fetchDocumentaries} categoryLink="/documentaries" categoryComment={categoryComments.documentaryComments} />
           </Route>
-
+          <Route exact path="/netflix_originals/:id">
+            <MovieDetails category={categoryComments.netflixOriginalComments} />
+          </Route>
           <Route path="/top_rated/:id">
-            <MovieDetails />
+            <MovieDetails category={categoryComments.topRatedComments} />
           </Route>
           <Route path="/romance/:id">
-            <MovieDetails />
+            <MovieDetails category={categoryComments.romanceComments} />
           </Route>
           <Route path="/trending/:id">
-            <MovieDetails />
+            <MovieDetails category={categoryComments.trendingComments} />
           </Route>
           <Route path="/comedy/:id">
-            <MovieDetails />
+            <MovieDetails category={categoryComments.comedyComments} />
           </Route>
           <Route path="/horror/:id">
-            <MovieDetails />
+            <MovieDetails category={categoryComments.horrorComments} />
           </Route>
           <Route path="/action/:id">
-            <MovieDetails />
+            <MovieDetails category={categoryComments.actionComments} />
           </Route>
           <Route path="/documentaries/:id">
-            <MovieDetails />
+            <MovieDetails category={categoryComments.documentaryComments} />
           </Route>
 
           <Route path="*">

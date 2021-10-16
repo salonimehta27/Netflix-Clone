@@ -4,7 +4,6 @@ import { Link } from "react-router-dom"
 import Comments from './Comments';
 import YouTube from 'react-youtube';
 import "./Row.css";
-import MovieDetails from './MovieDetails';
 
 function Row({ title, fetchUrl, isLargeRow, categoryLink, categoryComment }) {
     const [movies, setMovies] = useState([])
@@ -71,7 +70,7 @@ function Row({ title, fetchUrl, isLargeRow, categoryLink, categoryComment }) {
             })
         setDisplayMovieDetails(!displayMovieDetails)
     }
-    const displayAllComments = comments.map(x => <p>{x.comment}</p>)
+
     // console.log(getMovie)
     return (
         <div>
@@ -97,7 +96,7 @@ function Row({ title, fetchUrl, isLargeRow, categoryLink, categoryComment }) {
                 </div>
                 {trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />}
             </div >
-        </div>
+        </div >
     )
 }
 

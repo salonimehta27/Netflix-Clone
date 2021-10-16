@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
-function Comments({ categoryComment, mov_id, comments, handleAddComment }) {
+function Comments({ categoryComment, mov_id, handleAddComment }) {
 
     console.log(handleAddComment)
     const [newComment, setNewComment] = useState("")
@@ -16,6 +16,7 @@ function Comments({ categoryComment, mov_id, comments, handleAddComment }) {
             },
             body: JSON.stringify({
                 comment: newComment,
+                likes: 0,
                 mov_id: mov_id
             })
         }).then(resp => resp.json())

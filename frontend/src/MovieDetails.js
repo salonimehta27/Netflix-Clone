@@ -6,10 +6,10 @@ import Reviews from './Reviews';
 function MovieDetails({ category }) {
     console.log(category)
 
-    const usePathname = () => {
-        const location = useLocation();
-        return location.pathname;
-    }
+    // const usePathname = () => {
+    //     const location = useLocation();
+    //     return location.pathname;
+    // }
     // debugger
     // const getPath = usePathname()
     const getPath = window.location.pathname
@@ -34,8 +34,8 @@ function MovieDetails({ category }) {
     return (
         <>
             <div style={{ marginTop: "3rem", backgroundColor: "white", position: "relative" }}>
-                <img src={`${baseImageUrl}${getMovie.poster_path}`} style={{ width: "300px", height: "400px" }}></img>
-                <img src={`${baseImageUrl}${getMovie.backdrop_path}`} style={{ width: "300px", height: "400px" }}></img>
+                <img src={`${baseImageUrl}${getMovie.poster_path}`} alt="poster" style={{ width: "300px", height: "400px" }}></img>
+                <img src={`${baseImageUrl}${getMovie.backdrop_path}`} alt="poster" style={{ width: "300px", height: "400px" }}></img>
                 <h2>{getMovie?.name || getMovie?.title || getMovie?.original_name}</h2>
                 <p>{getMovie.overview}</p>
             </div>

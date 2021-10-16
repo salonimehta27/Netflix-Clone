@@ -9,7 +9,7 @@ function Banner({ fetchUrl }) {
             .then(data => setMovie(() => {
                 return data[Math.floor(Math.random() * data.length - 1)]
             }))
-    }, [])
+    }, [fetchUrl])
     // console.log(movie)
     function truncateString(str, num) {
         if (str?.length > num) {

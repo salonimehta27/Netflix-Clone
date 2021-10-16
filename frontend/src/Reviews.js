@@ -1,10 +1,12 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
+import ReviewLikes from './ReviewLikes'
 
 function Reviews({ movieId, category }) {
 
     const [comment, setComment] = useState([])
     const [showComments, setShowComments] = useState(false)
+    const [likes, setLikes] = useState(0)
 
     console.log(movieId)
     console.log(category)
@@ -22,14 +24,26 @@ function Reviews({ movieId, category }) {
     //     setShowComments(!showComments)
     // }
     console.log(comment)
-    const commentFilter = comment.filter(x => x.netflix_original_id == movieId)
+    const commentFilter = comment.filter(x => x.netflix_original_id === movieId)
     // debugger
+
+    function handleUpdate(updatedComment) {
+        const updated = comment.filter(x => x.id === updatedComment.id ? updatedComment : x)
+        setComment(updated)
+    }
+
+
 
     return (
         <div style={{ backgroundColor: "white" }}>
             {/* <button onClick={handleReviews}>see more</button> */}
             <h2>Reviews</h2>
-            {showComments && commentFilter.map(x => <p key={x.id}>{x.comment}</p>)}
+            {commentFilter.map((x) => {
+                return <>
+                    <p key={x.id}>{x.comment}</p>
+                    <ReviewLikes comment={x} onUpdate={handleUpdate} category={category} />
+                </>
+            })}
         </div>
     )
 }

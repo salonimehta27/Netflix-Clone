@@ -1,6 +1,8 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import ReviewLikes from './ReviewLikes'
+import moment from 'moment'
+import './Review.css'
 
 function Reviews({ movieId, category }) {
 
@@ -35,14 +37,18 @@ function Reviews({ movieId, category }) {
 
 
     return (
-        <div style={{ backgroundColor: "white" }}>
+        <div className="shadow" style={{ backgroundColor: "white" }}>
             {/* <button onClick={handleReviews}>see more</button> */}
-            <h2>Reviews</h2>
+            <h2 className="centerText">Comments</h2>
+            <hr style={{ height: "5px", color: "black", backgroundColor: "black", width: "50%", marginLeft: "25%", marginRight: "25% !important" }}></hr>
+            <br />
+            {commentFilter.length === 0 && <h3 className="centerText">No comments on this yet!!! </h3>}
             {commentFilter.map((x) => {
-                return <>
-                    <p key={x.id}>{x.comment}</p>
+                return <div className="shadow">
+                    <p className="centerText" key={x.id}><h5>Anonymous-</h5> <i>{x.comment}</i></p>
+                    <h5 className="centerText">{moment(x.created_at).format('MMMM Do YYYY')}{" "}</h5>
                     <ReviewLikes comment={x} onUpdate={handleUpdate} category={category} />
-                </>
+                </div>
             })}
         </div>
     )

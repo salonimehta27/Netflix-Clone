@@ -87,9 +87,10 @@ function Row({ title, fetchUrl, isLargeRow, categoryLink, categoryComment }) {
                             />
                             {movieId === movie.id && movieClick && <><button className="mov__button" onClick={() => handleClick(movie?.original_name || movie?.title || movie?.name)}>{`Play ${movie?.original_name || movie?.title || movie?.name} Trailer`}</button>
                                 <button className="mov__button" onClick={() => handleReview(movie.id)}>Leave Review</button>
+                                {displayComments && movie.id === movieId && <Comments comments={comments} handleAddComment={handleAddComment} categoryComment={categoryComment} style={{ marginTop: "10rem" }} mov_id={movieId} />}
                                 <Link to={`${categoryLink}/${movie.id}`} href={`${categoryLink}/${movie.id}`} className="mov__button" style={{ textDecoration: "none", paddingTop: "1rem" }} onClick={viewComments}>
                                     View movie Details and Reviews</Link> </>}
-                            {displayComments && movie.id === movieId && <Comments comments={comments} handleAddComment={handleAddComment} categoryComment={categoryComment} style={{ marginTop: "10rem" }} mov_id={movieId} />}
+
 
                         </>
                     ))}

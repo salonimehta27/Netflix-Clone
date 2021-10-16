@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router'
-import { useLocation } from 'react-router-dom';
 import Reviews from './Reviews';
+import './Review.css'
 
 function MovieDetails({ category }) {
     console.log(category)
@@ -32,17 +31,20 @@ function MovieDetails({ category }) {
     // console.log(props.location)
     const baseImageUrl = "https://image.tmdb.org/t/p/original/"
     return (
-        <>
-            <div style={{ marginTop: "3rem", backgroundColor: "white", position: "relative" }}>
-                <img src={`${baseImageUrl}${getMovie.poster_path}`} alt="poster" style={{ width: "300px", height: "400px" }}></img>
-                <img src={`${baseImageUrl}${getMovie.backdrop_path}`} alt="poster" style={{ width: "300px", height: "400px" }}></img>
-                <h2>{getMovie?.name || getMovie?.title || getMovie?.original_name}</h2>
-                <p>{getMovie.overview}</p>
+        <div style={{ backgroundColor: "black" }}>
+            <div className="shadow" style={{ marginTop: "3rem", backgroundColor: "white", position: "relative" }}>
+                <h1 className="centerText">{getMovie?.name || getMovie?.title || getMovie?.original_name}</h1>
+                <img className="center" src={`${baseImageUrl}${getMovie.poster_path}`} alt="poster" ></img>
+
+                <br />
+                <p className="centerText"> <h3>About {getMovie?.name || getMovie?.title || getMovie?.original_name}</h3>{getMovie.overview}</p>
+                <br />
+                <img className="center" src={`${baseImageUrl}${getMovie.backdrop_path}`} alt="poster" ></img>
             </div>
             <div>
                 <Reviews movieId={getPathId} category={category} />
             </div>
-        </>
+        </div>
     )
 }
 

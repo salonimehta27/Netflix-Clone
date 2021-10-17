@@ -5,12 +5,6 @@ import './Review.css'
 function MovieDetails({ category }) {
     console.log(category)
 
-    // const usePathname = () => {
-    //     const location = useLocation();
-    //     return location.pathname;
-    // }
-    // debugger
-    // const getPath = usePathname()
     const getPath = window.location.pathname
     const getPathId = parseInt(getPath.split("/").pop())
 

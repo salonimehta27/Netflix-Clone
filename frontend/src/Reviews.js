@@ -11,8 +11,10 @@ function Reviews({ movieId, category }) {
     const [likes, setLikes] = useState(0)
 
     console.log(movieId)
-    console.log(category)
 
+    const getName = category.split("/").pop().slice(0, -9) + "_id"
+    // debugger;
+    console.log(getName)
     useEffect(() => {
         fetch(`http://localhost:9292${category}`)
             .then(resp => resp.json())
@@ -26,7 +28,15 @@ function Reviews({ movieId, category }) {
     //     setShowComments(!showComments)
     // }
     console.log(comment)
-    const commentFilter = comment.filter(x => x.netflix_original_id === movieId)
+    let commentFilter
+    if (getName === "netflix_original_id") { commentFilter = comment.filter(x => x.netflix_original_id === movieId) }
+    else if (getName === "trending_id") { commentFilter = comment.filter(x => x.trending_id === movieId) }
+    else if (getName === "romance_id") { commentFilter = comment.filter(x => x.romance_id === movieId) }
+    else if (getName === "top_rated_id") { commentFilter = comment.filter(x => x.top_rated_id === movieId) }
+    else if (getName === "action_id") { commentFilter = comment.filter(x => x.action_id === movieId) }
+    else if (getName === "horror_id") { commentFilter = comment.filter(x => x.horror_id === movieId) }
+    else if (getName === "documentary_id") { commentFilter = comment.filter(x => x.documentary_id === movieId) }
+    else if (getName === "comedy_id") { commentFilter = comment.filter(x => x.comedy_id === movieId) }
     // debugger
 
     function handleUpdate(updatedComment) {
@@ -34,16 +44,14 @@ function Reviews({ movieId, category }) {
         setComment(updated)
     }
 
-
-
     return (
         <div className="shadow" style={{ backgroundColor: "white" }}>
             {/* <button onClick={handleReviews}>see more</button> */}
             <h2 className="centerText">Comments</h2>
             <hr style={{ height: "5px", color: "black", backgroundColor: "black", width: "50%", marginLeft: "25%", marginRight: "25% !important" }}></hr>
             <br />
-            {commentFilter.length === 0 && <h3 className="centerText">No comments on this yet!!! </h3>}
-            {commentFilter.map((x) => {
+
+            {commentFilter.length == 0 ? <h4 className="centerText">No comments on this yet!! </h4> : commentFilter.map((x) => {
                 return <div className="shadow">
                     <p className="centerText" key={x.id}><h5>Anonymous-</h5> <i>{x.comment}</i></p>
                     <h5 className="centerText">{moment(x.created_at).format('MMMM Do YYYY')}{" "}</h5>

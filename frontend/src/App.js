@@ -27,25 +27,25 @@ function App() {
           <Route exact path="/netflix_originals/:id">
             <MovieDetails category={categoryComments.netflixOriginalComments} />
           </Route>
-          <Route path="/top_rated/:id">
+          <Route exact path="/top_rated/:id">
             <MovieDetails category={categoryComments.topRatedComments} />
           </Route>
-          <Route path="/romance/:id">
+          <Route exact path="/romance/:id">
             <MovieDetails category={categoryComments.romanceComments} />
           </Route>
-          <Route path="/trending/:id">
+          <Route exact path="/trending/:id">
             <MovieDetails category={categoryComments.trendingComments} />
           </Route>
-          <Route path="/comedy/:id">
+          <Route exact path="/comedy/:id">
             <MovieDetails category={categoryComments.comedyComments} />
           </Route>
-          <Route path="/horror/:id">
+          <Route exact path="/horror/:id">
             <MovieDetails category={categoryComments.horrorComments} />
           </Route>
-          <Route path="/action/:id">
+          <Route exact path="/action/:id">
             <MovieDetails category={categoryComments.actionComments} />
           </Route>
-          <Route path="/documentaries/:id">
+          <Route exact path="/documentaries/:id">
             <MovieDetails category={categoryComments.documentaryComments} />
           </Route>
 

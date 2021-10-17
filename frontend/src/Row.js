@@ -10,19 +10,16 @@ function Row({ title, fetchUrl, isLargeRow, categoryLink, categoryComment }) {
     const [movieClick, setMovieClick] = useState(false)
     const [movieId, setMovieId] = useState(0);
     const [displayComments, setDisplayComments] = useState(false)
-    // const [getMovie, setGetMovie] = useState([])
     const [trailerUrl, setTrailerUrl] = useState("")
     const [comments, setComments] = useState([])
     const [displayMovieDetails, setDisplayMovieDetails] = useState(false)
-    // let history = useHistory();
-    // const baseURL = "https://api.themoviedb.org/3"
+
 
     useEffect(() => {
         fetch(`${fetchUrl}`)
             .then(resp => resp.json())
             .then(data => setMovies(data))
     }, [fetchUrl])
-
 
 
     const opts = {
@@ -66,7 +63,7 @@ function Row({ title, fetchUrl, isLargeRow, categoryLink, categoryComment }) {
             .then(resp => resp.json())
             .then(data => {
                 setComments(data)
-                // console.log(data)
+                console.log(data)
             })
         setDisplayMovieDetails(!displayMovieDetails)
     }
